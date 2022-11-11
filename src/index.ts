@@ -3,10 +3,15 @@ import express from 'express'
 import morgan from 'morgan'
 import cors from 'cors'
 import helmet from 'helmet'
+import connectToDB from './config/db'
+import { router as userRouter } from './routes/userRoutes'
+
 dotenv.config()
 
 const app = express()
 const PORT = process.env.PORT || 5000
+
+connectToDB()
 
 //cors & helmet => for security
 app.use(cors())
@@ -19,9 +24,8 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use(express.json())
 
-app.get('/', (_, res) => {
-    res.json('API running.')
-})
+// for all User related APIs
+app.use('/api/user', userRouter)
 
 app.listen(PORT, () =>
     console.log('Server is running at http://localhost:' + PORT)
