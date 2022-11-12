@@ -5,6 +5,7 @@ declare interface IUserSchema {
     name: string
     email: string
     password: string
+    isVerified: boolean
     username: string
     profile: string
     timestamps: boolean
@@ -25,4 +26,22 @@ declare interface IMessageSchema {
     sender: ObjectId
     content: string
     chat: ObjectId
+}
+
+declare module 'express-serve-static-core' {
+    interface Request {
+        user: any
+    }
+}
+
+// User Object
+declare interface UserData {
+    _id: ObjectId
+    name: string
+    email: string
+    password: string
+    isVerified: boolean
+    username: string
+    profile: string
+    timestamps: boolean
 }

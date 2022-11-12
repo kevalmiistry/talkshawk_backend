@@ -21,6 +21,10 @@ const userSchema = new Schema<IUserSchema>(
             type: String,
             required: true,
         },
+        isVerified: {
+            type: Boolean,
+            default: false,
+        },
         profile: {
             type: String,
             default:
