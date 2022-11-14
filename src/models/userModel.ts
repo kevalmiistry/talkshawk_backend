@@ -25,6 +25,9 @@ const userSchema = new Schema<IUserSchema>(
             type: Boolean,
             default: false,
         },
+        otpforpass: {
+            type: String,
+        },
         profile: {
             type: String,
             default:

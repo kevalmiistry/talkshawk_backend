@@ -29,3 +29,37 @@ const sendMail = async (email: string, authToken: string) => {
     }
 }
 export default sendMail
+
+export const sendMailForget = async (
+    email: string,
+    authToken: string,
+    OTP: string
+) => {
+    try {
+        let transporter = nodemailer.createTransport({
+            host: process.env.MAIL_HOST,
+            port: +process.env.MAIL_PORT!,
+            secure: true, // true for 465, false for other ports
+            auth: {
+                user: process.env.MAIL_ID,
+                pass: process.env.MAIL_PASS,
+            },
+        })
+
+        // send mail with defined transport object
+        let url = `http://localhost:3000/forgetpassword/${authToken}`
+
+        const htmlString = `<div style="font-family: \'Nirmala UI\'; width: 100%; color: #444; padding: 1em;"> <div style="background: #fff; border-radius: 10px; margin: 4em auto; width: fit-content;"> <p style="text-align: center;">Hi</p> <p style="text-align: center;"></p> <p style="text-align: center;">Forgot your password?</p> <p style="text-align: center;">We received a request to reset your password for your account.</p> <p style="text-align: center;">Your OTP: ${OTP}</p> <p style="text-align: center;">Click on below button and enter the OTP there.</p> <a style="display: block; margin: auto; width: fit-content; text-decoration: none; background-color: #a0e4b0; padding: 4px 10px; color: #fff; border-radius: 4px;" href="${url}">Change Password</a> </div> </div>`
+        let info = await transporter.sendMail({
+            from: '"Test TalkShawk" <emailverify.wasteaid@gmail.com>', // sender address
+            to: `${email}`, // list of receivers
+            subject: 'Test TalkShawk Change Password', // Subject line
+            // text: "Hello world?", // plain text body
+            html: htmlString,
+        })
+        return true
+    } catch (error) {
+        console.log(error)
+        return false
+    }
+}

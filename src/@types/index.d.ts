@@ -1,18 +1,19 @@
-import { ObjectId } from 'mongoose'
+import { Document, ObjectId } from 'mongoose'
 
 // User Schema Model types
-declare interface IUserSchema {
+declare interface IUserSchema extends Document {
     name: string
     email: string
     password: string
     isVerified: boolean
+    otpforpass: string
     username: string
     profile: string
     timestamps: boolean
 }
 
 // Chat Schema Model types
-declare interface IChatSchema {
+declare interface IChatSchema extends Document {
     chatName: string
     isGroupChat: boolean
     users: ObjectId[]
@@ -22,16 +23,10 @@ declare interface IChatSchema {
 }
 
 // Message Schema Model types
-declare interface IMessageSchema {
+declare interface IMessageSchema extends Document {
     sender: ObjectId
     content: string
     chat: ObjectId
-}
-
-declare module 'express-serve-static-core' {
-    interface Request {
-        user: any
-    }
 }
 
 // User Object

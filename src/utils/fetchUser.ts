@@ -14,7 +14,7 @@ const fetchUser = asyncHandler(
                 token,
                 process.env.JWT_SEC || 'DevSecString'
             )
-            req.user = data
+            res.locals._id = data
             next()
         } catch (error) {
             res.json({ sucess: false, message: 'Please authenticate yourself' })
