@@ -5,6 +5,7 @@ import cors from 'cors'
 import helmet from 'helmet'
 import connectToDB from './config/db'
 import { router as userRouter } from './routes/userRoutes'
+import { router as chatRouter } from './routes/chatRoutes'
 
 dotenv.config()
 
@@ -26,6 +27,7 @@ app.use(express.json())
 
 // for all User related APIs
 app.use('/api/user', userRouter)
+app.use('/api/chat', chatRouter)
 
 app.listen(PORT, () =>
     console.log('Server is running at http://localhost:' + PORT)

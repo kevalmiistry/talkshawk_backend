@@ -16,7 +16,7 @@ declare interface IUserSchema extends Document {
 declare interface IChatSchema extends Document {
     chatName: string
     isGroupChat: boolean
-    users: ObjectId[]
+    users: any
     latestMessage: ObjectId
     groupAdmins: ObjectId[]
     timestamps: boolean
