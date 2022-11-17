@@ -6,6 +6,7 @@ import helmet from 'helmet'
 import connectToDB from './config/db'
 import { router as userRouter } from './routes/userRoutes'
 import { router as chatRouter } from './routes/chatRoutes'
+import { router as messageRouter } from './routes/messageRoutes'
 
 dotenv.config()
 
@@ -28,6 +29,7 @@ app.use(express.json())
 // for all User related APIs
 app.use('/api/user', userRouter)
 app.use('/api/chat', chatRouter)
+app.use('/api/message', messageRouter)
 
 app.listen(PORT, () =>
     console.log('Server is running at http://localhost:' + PORT)

@@ -11,7 +11,7 @@ import jwt from 'jsonwebtoken'
 export const createUser: RequestHandler = asyncHandler(
     async (req: Request, res: Response) => {
         let success = false
-        const { name, username, email, password, profile } = req.body
+        const { name, username, email, password, pic } = req.body
 
         const emailExist = await User.findOne({ email })
         if (emailExist) {
@@ -42,7 +42,7 @@ export const createUser: RequestHandler = asyncHandler(
             username: username.toLowerCase(),
             email,
             password: hashPassword,
-            profile,
+            pic,
         })
 
         if (newUser) {
@@ -53,7 +53,7 @@ export const createUser: RequestHandler = asyncHandler(
                 email: newUser.email,
                 name: newUser.name,
                 username: newUser.username,
-                profile: newUser.profile,
+                pic: newUser.pic,
                 token: generatedToken,
             }
 
@@ -152,7 +152,7 @@ async function helper(
         name: userData.name,
         username: userData.username,
         email: userData.email,
-        profile: userData.profile,
+        pic: userData.pic,
         token: authToken,
     }
     res.json({ success: true, message: 'Login Successfull!', user: userToSend })

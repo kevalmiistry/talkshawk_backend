@@ -8,7 +8,7 @@ declare interface IUserSchema extends Document {
     isVerified: boolean
     otpforpass: string
     username: string
-    profile: string
+    pic: string
     timestamps: boolean
 }
 
@@ -37,6 +37,6 @@ declare interface UserData {
     password: string
     isVerified: boolean
     username: string
-    profile: string
+    pic: string
     timestamps: boolean
 }

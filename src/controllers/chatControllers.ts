@@ -32,7 +32,7 @@ export const createOneOnOneChat: RequestHandler = asyncHandler(
 
         let isChat2 = await User.populate(isChat, {
             path: 'latestMessage.sender',
-            select: 'name username email profile',
+            select: 'name username email pic',
         })
 
         if (isChat2.length > 0) {
@@ -72,7 +72,7 @@ export const fetchAllChats: RequestHandler = asyncHandler(
 
             const finalChats = await User.populate(chats, {
                 path: 'latestMessage.sender',
-                select: 'name username email profile',
+                select: 'name username email pic',
             })
 
             res.json(finalChats)
