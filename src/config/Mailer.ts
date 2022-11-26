@@ -14,13 +14,25 @@ const sendMail = async (email: string, authToken: string) => {
 
         // send mail with defined transport object
         let url = `http://localhost:3000/verifyemail/${authToken}`
+        const htmlBody = `<div
+    style="border-radius: 15px; margin:0; background: #111;font-family: 'Nirmala UI'; height:100vh; color: #fff; padding: 1em; font-weight: 600; font-size: 1.5em;">
+    <img style="display: block; margin: auto; width: 60%; margin-top: 3rem;"
+        src="https://firebasestorage.googleapis.com/v0/b/talkshawk-4d53a.appspot.com/o/images%2Ftalkshawk_full_logo.png?alt=media&token=dc43c3c1-ea20-4307-b3da-e237ca834681"
+        alt="talkshawk logo" />
+    <p style="text-align: center; margin-top: 3rem;">Thank you for Signing up at TalkShawk! 😀</p>
+    <p style="text-align: center;">Click below button to Verify</p>
+
+    <a style="display: block; margin: auto; width: fit-content; text-decoration: none; background-color: teal; padding: 4px 10px; color: #fff; border-radius: 4px; color:#111"
+        href="${url}">Verify Email</a>
+    <p style="text-align: center; font-size: 1rem; margin-top: 3rem;">&copy ${new Date().getFullYear()} TalkShawk. All rights Reserved.</p>
+</div>`
 
         let info = await transporter.sendMail({
-            from: '"Test TalkShawk" <emailverify.wasteaid@gmail.com>', // sender address
+            from: '"TalkShawk" <emailverify.wasteaid@gmail.com>', // sender address
             to: `${email}`, // list of receivers
-            subject: 'Test TalkShawk Email Verification', // Subject line
+            subject: 'TalkShawk Email Verification', // Subject line
             // text: "Hello world?", // plain text body
-            html: `<div style="font-family: \'Nirmala UI\'; width: 100%; color: #444; padding: 1em;"><div style="background: #fff; border-radius: 10px; margin: 4em auto; width: fit-content;"><p style="text-align: center;">We are glad you chose to join TalkShawk :D</p><p style="text-align: center;">Click below Button to verify your email!{' '}</p><a style="display: block; margin: auto; width: fit-content; text-decoration: none; background-color: #a0e4b0; padding: 4px 10px; color: #fff; border-radius: 4px;" href="${url}">Verify Email</a></div></div>;`,
+            html: htmlBody,
         })
         return true
     } catch (error) {
@@ -49,11 +61,24 @@ export const sendMailForget = async (
         // send mail with defined transport object
         let url = `http://localhost:3000/forgetpassword/${authToken}`
 
-        const htmlString = `<div style="font-family: \'Nirmala UI\'; width: 100%; color: #444; padding: 1em;"> <div style="background: #fff; border-radius: 10px; margin: 4em auto; width: fit-content;"> <p style="text-align: center;">Hi</p> <p style="text-align: center;"></p> <p style="text-align: center;">Forgot your password?</p> <p style="text-align: center;">We received a request to reset your password for your account.</p> <p style="text-align: center;">Your OTP: ${OTP}</p> <p style="text-align: center;">Click on below button and enter the OTP there.</p> <a style="display: block; margin: auto; width: fit-content; text-decoration: none; background-color: #a0e4b0; padding: 4px 10px; color: #fff; border-radius: 4px;" href="${url}">Change Password</a> </div> </div>`
+        const htmlString = `<div
+    style="border-radius: 15px; margin:0; background: #111;font-family: 'Nirmala UI'; height:100vh; color: #fff; padding: 1em; font-weight: 600; font-size: 1.5em;">
+    <img style="display: block; margin: auto; width: 60%; margin-top: 3rem;"
+        src="https://firebasestorage.googleapis.com/v0/b/talkshawk-4d53a.appspot.com/o/images%2Ftalkshawk_full_logo.png?alt=media&token=dc43c3c1-ea20-4307-b3da-e237ca834681"
+        alt="talkshawk logo" />
+    <p style="text-align: center; margin-top: 3rem;">Forget your password?</p>
+    <p style="text-align: center; margin-top: 3rem;">We received a request to reset your password for your account.</p>
+    <p style="text-align: center; margin-top: 3rem;">Your OTP:&nbsp; <span style="font-size: 2.1rem;">${OTP}</span></p>
+    <p style="text-align: center;">Copy your OTP and Click below button to reset the password.</p>
+
+    <a style="display: block; margin: auto; width: fit-content; text-decoration: none; background-color: teal; padding: 4px 10px; color: #fff; border-radius: 4px; color:#111"
+        href="${url}">Reset Password</a>
+    <p style="text-align: center; font-size: 1rem; margin-top: 3rem;">&copy 2022 TalkShawk. All rights Reserved.</p>
+</div>`
         let info = await transporter.sendMail({
-            from: '"Test TalkShawk" <emailverify.wasteaid@gmail.com>', // sender address
+            from: '"TalkShawk" <emailverify.wasteaid@gmail.com>', // sender address
             to: `${email}`, // list of receivers
-            subject: 'Test TalkShawk Change Password', // Subject line
+            subject: 'TalkShawk Forget Password', // Subject line
             // text: "Hello world?", // plain text body
             html: htmlString,
         })
