@@ -88,6 +88,10 @@ export const createGroupChat: RequestHandler = asyncHandler(
         const { _id } = res.locals
         const users: string[] = req.body.users
         const name: string = req.body.name
+        const { pic } = req.body
+
+        const defaultGrpPic =
+            'https://firebasestorage.googleapis.com/v0/b/talkshawk-4d53a.appspot.com/o/images%2Fdefault_group_pic.png?alt=media&token=10fb4c40-8baf-4bc7-b4f5-bf645ecfb062'
 
         if (!users || !name) {
             res.json({ success: false, message: 'Please fill all the details' })
@@ -111,6 +115,7 @@ export const createGroupChat: RequestHandler = asyncHandler(
                 users: users,
                 isGroupChat: true,
                 groupAdmins: groupAdmins,
+                groupPic: pic ? pic : defaultGrpPic,
             })
 
             const fullChat = await Chat.findOne({ _id: groupChat._id })

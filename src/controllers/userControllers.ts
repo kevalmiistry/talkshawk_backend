@@ -12,8 +12,10 @@ export const createUser: RequestHandler = asyncHandler(
     async (req: Request, res: Response) => {
         let success = false
         const { name, username, email, password, pic } = req.body
+        const defaultPic =
+            'https://firebasestorage.googleapis.com/v0/b/talkshawk-4d53a.appspot.com/o/images%2Fanonymous-avatar-icon.jpg?alt=media&token=498b3cd2-d0d3-4350-9492-8a245cffb1d2'
 
-        const emailExist = await User.findOne({ email })
+        const emailExist = await User.findOne({ email: email.toLowerCase() })
         if (emailExist) {
             res.json({
                 success,
@@ -40,9 +42,9 @@ export const createUser: RequestHandler = asyncHandler(
         const newUser = await User.create({
             name,
             username: username.toLowerCase(),
-            email,
+            email: email.toLowerCase(),
             password: hashPassword,
-            pic,
+            pic: pic ? pic : defaultPic,
         })
 
         if (newUser) {
@@ -104,10 +106,14 @@ export const loginUser: RequestHandler = asyncHandler(
             const { type, email_username, password } = req.body
             let isUserExist: UserData | null
             if (type === 'email') {
-                isUserExist = await User.findOne({ email: email_username })
+                isUserExist = await User.findOne({
+                    email: email_username.toLowerCase(),
+                })
                 helper(isUserExist, type, req, res)
             } else if (type === 'username') {
-                isUserExist = await User.findOne({ username: email_username })
+                isUserExist = await User.findOne({
+                    username: email_username.toLowerCase(),
+                })
                 helper(isUserExist, type, req, res)
             }
         } catch (error) {}
@@ -163,7 +169,7 @@ export const isUsername: RequestHandler = asyncHandler(
     async (req: Request, res: Response) => {
         const { username } = req.body
 
-        const isUser = await User.findOne({ username })
+        const isUser = await User.findOne({ username: username.toLowerCase() })
         if (isUser) {
             res.json({ available: false })
         } else {
@@ -177,7 +183,7 @@ export const isEmail: RequestHandler = asyncHandler(
     async (req: Request, res: Response) => {
         const { email } = req.body
 
-        const isUser = await User.findOne({ email })
+        const isUser = await User.findOne({ email: email.toLowerCase() })
         if (isUser) {
             res.json({ available: false })
         } else {
