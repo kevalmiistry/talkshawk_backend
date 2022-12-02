@@ -1,14 +1,22 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "",
+  "name": "talkshawk-server",
+  "version": "0.1.0",
+  "description": "talkshawk web based chat application's backend code",
   "main": "index.js",
   "scripts": {
     "start": "ts-node src/index.ts",
-    "dev": "nodemon --exec ts-node src/index.ts"
+    "dev": "nodemon --exec ts-node src/index.ts",
+    "build": "tsc"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "typescript",
+    "express",
+    "jsonwebtoken",
+    "nodemailer",
+    "bcryptjs",
+    "mongoose"
+  ],
+  "author": "@kevalmiistry",
   "license": "ISC",
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
