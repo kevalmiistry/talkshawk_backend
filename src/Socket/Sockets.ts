@@ -34,15 +34,12 @@ const configureSockets = (
     io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>
 ) => {
     io.on('connection', (socket) => {
-        console.log('CONNECTED TO SOCKET.IO')
-
         socket.on('joinChat', (roomId) => {
             socket.join(roomId)
         })
 
         socket.on('online', (userData: TUserData) => {
             socket.join(userData._id)
-            console.log('The User Joined: ' + userData._id)
             socket.emit('__online__')
         })
 
@@ -66,7 +63,6 @@ const configureSockets = (
         })
 
         socket.off('setUp', (userData: TUserData) => {
-            console.log('USER DISCONNECTED')
             socket.leave(userData._id)
         })
     })
