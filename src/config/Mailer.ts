@@ -25,14 +25,14 @@ const sendMail = async (
     <img style="display: block; margin: 0; width: 60%; margin-top: 3rem;"
         src="https://firebasestorage.googleapis.com/v0/b/talkshawk-4d53a.appspot.com/o/images%2Ftalkshawk_full_logo-removebg-preview.png?alt=media&token=2a9f6532-48b1-4885-91b2-17559338296d"
         alt="talkshawk logo" />
-    <p style="text-align: left; margin-top: 3rem;">Hi 👋, ${Name} (@${UserName})</p>
-    <p style="text-align: left; margin-top: 3rem;">Thank you for Signing up at TalkShawk! 😀</p>
-    <p style="text-align: left;">Click on the button below to verify your email.</p>
+    <p style="color: #fff; margin-top: 3rem;">Hi 👋, ${Name} (@${UserName})</p>
+    <p style="color: #fff; margin-top: 3rem;">Thank you for Signing up at TalkShawk! 😀</p>
+    <p style="color: #fff;">Click on the button below to verify your email.</p>
     <a style="display: block; margin: 1px; width: fit-content; text-decoration: none; background-color: teal; padding: 4px 10px; color: #fff; border-radius: 4px;"
         href="${url}">Verify Email</a>
-    <p style="text-align: left;">Or click the link below to verify your email.</p>
+    <p style="color: #fff;">Or click the link below to verify your email.</p>
     <a href="${url}">${url}</a>
-    <p style="text-align: left; font-size: 14px; margin-top: 3rem;">&copy 2022 TalkShawk. All rights Reserved.</p>
+    <p style="color: #fff; font-size: 14px; margin-top: 3rem;">© ${new Date().getFullYear()} TalkShawk. All rights Reserved.</p>
 </div>`
 
         let info = await transporter.sendMail({
@@ -48,12 +48,15 @@ const sendMail = async (
         return false
     }
 }
+
 export default sendMail
 
 export const sendMailForget = async (
     email: string,
     authToken: string,
-    OTP: string
+    OTP: string,
+    Name: string,
+    UserName: string
 ) => {
     try {
         let transporter = nodemailer.createTransport({
@@ -70,19 +73,24 @@ export const sendMailForget = async (
         let url = `${process.env.CLIENT_URL}/forgetpassword/${authToken}`
 
         const htmlString = `<div
-    style="border-radius: 15px; margin:0; background: #111;font-family: 'Nirmala UI'; height:100vh; color: #fff; padding: 1em; font-weight: 600; font-size: 1.5em;">
-    <img style="display: block; margin: auto; width: 60%; margin-top: 3rem;"
-        src="https://firebasestorage.googleapis.com/v0/b/talkshawk-4d53a.appspot.com/o/images%2Ftalkshawk_full_logo.png?alt=media&token=dc43c3c1-ea20-4307-b3da-e237ca834681"
+    style="border-radius: 15px; margin:0; background: #000;font-family: 'Nirmala UI'; height:100vh; color: #fff; padding: 1em;  font-size: 16px;">
+    <img style="display: block; margin: 0; width: 60%; margin-top: 3rem;"
+        src="https://firebasestorage.googleapis.com/v0/b/talkshawk-4d53a.appspot.com/o/images%2Ftalkshawk_full_logo-removebg-preview.png?alt=media&token=2a9f6532-48b1-4885-91b2-17559338296d"
         alt="talkshawk logo" />
-    <p style="text-align: center; margin-top: 3rem;">Forget your password?</p>
-    <p style="text-align: center; margin-top: 3rem;">We received a request to reset your password for your account.</p>
-    <p style="text-align: center; margin-top: 3rem;">Your OTP:&nbsp; <span style="font-size: 2.1rem;">${OTP}</span></p>
-    <p style="text-align: center;">Copy your OTP and Click below button to reset the password.</p>
-
-    <a style="display: block; margin: auto; width: fit-content; text-decoration: none; background-color: teal; padding: 4px 10px; color: #fff; border-radius: 4px; color:#111"
-        href="${url}">Reset Password</a>
-    <p style="text-align: center; font-size: 1rem; margin-top: 3rem;">&copy 2022 TalkShawk. All rights Reserved.</p>
+    <p style="margin-top: 3rem; color:#fff;">Hi 👋, ${Name} (@${UserName})</p>
+    <p style="color:#fff;">Forget your password?</p>
+    <p style="color:#fff;">We received a request to reset your password for your account.</p>
+    <p style="color:#fff;">(NOTE: Don't share your OTP with anyone)</p>
+    <p style="color:#fff;">Copy your OTP and click below buttonor a link to reset the password.</p>
+    <p style="color:#fff;">Your OTP:&nbsp; <span style="font-size: 1.75rem; font-weight:600">${OTP}</span></p>
+    <a style="display: block; margin: 1px; width: fit-content; text-decoration: none; background-color: teal; padding: 4px 10px; color: #fff; border-radius: 4px;"
+        href="#">Verify Email</a>
+    <br>
+    <a href="${url}">${url}</a>
+    <p style="color:#fff;text-align: left; font-size: 14px; margin-top: 3rem;">© ${new Date().getFullYear()} TalkShawk. All rights
+        Reserved.</p>
 </div>`
+
         let info = await transporter.sendMail({
             from: '"TalkShawk" <emailverify.wasteaid@gmail.com>', // sender address
             to: `${email}`, // list of receivers

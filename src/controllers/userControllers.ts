@@ -292,7 +292,13 @@ export const sendEmailForPass: RequestHandler = asyncHandler(
                 return
             }
 
-            const sent = await sendMailForget(user.email, token, OTP)
+            const sent = await sendMailForget(
+                user.email,
+                token,
+                OTP,
+                user.name,
+                user.username
+            )
             if (sent) {
                 res.json({
                     success: true,
@@ -300,6 +306,12 @@ export const sendEmailForPass: RequestHandler = asyncHandler(
                 })
                 return
             }
+        } else {
+            res.json({
+                success: false,
+                message: "Account with this email doesn't exist!",
+            })
+            return
         }
     }
 )
