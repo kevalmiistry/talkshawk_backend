@@ -59,7 +59,12 @@ export const createUser: RequestHandler = asyncHandler(
                 token: generatedToken,
             }
 
-            const sentMail = await sendMail(newUser.email, generatedToken)
+            const sentMail = await sendMail(
+                newUser.email,
+                generatedToken,
+                newUser.name,
+                newUser.username
+            )
             if (sentMail) {
                 res.json({
                     success,
