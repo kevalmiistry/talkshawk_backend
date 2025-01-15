@@ -53,12 +53,12 @@ const configureSockets = (
         socket.on('newMessage', (newMessage: TMessage) => {
             let chat = newMessage.chat
             if (!chat.users) return console.error('chat.users not found')
-            socket.broadcast.in(chat._id).emit('messageRecieved', newMessage)
+            socket.broadcast.in(chat._id).emit('messageReceived', newMessage)
 
             chat.users.forEach((u: TUserData) => {
                 socket
                     .in(u._id)
-                    .emit('commonMessageRecieved', newMessage, u._id)
+                    .emit('commonMessageReceived', newMessage, u._id)
             })
         })
 
